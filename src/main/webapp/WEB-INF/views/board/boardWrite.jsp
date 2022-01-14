@@ -21,7 +21,17 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous">	
+	</script>
+	<!--  jQuery, bootstrap -->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.js"></script>
+
+    <!-- summernote css/js-->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.js"></script>
+	
 </head>
 <style>
 body {
@@ -50,7 +60,7 @@ body {
 }
 
 .card-header:first-child {
-	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
 }
 
 .card-header {
@@ -148,6 +158,16 @@ a {
 	text-overflow: ellipsis;
 	max-width: 130px;
 }
+#head{
+	font-size: 16px;
+	margin:4px;
+}
+#write{
+	border-style:none;
+	margin:20px;
+	padding:10px;
+	border-radius:5px;
+}
 </style>
 <body>
 	<!-- 메인 네비바 -->
@@ -157,8 +177,7 @@ a {
 
 		<!-- 타이틀  -->
 		<div id="title" align=center>
-			<img id="titleImg" src=""> <span>자유 게시판</span><br> <span>자유롭게
-				이야기를 나눠보세요.</span>
+			<img id="titleImg" src="">
 		</div>
 		<br>
 
@@ -167,70 +186,60 @@ a {
 
 			<!-- 분류 -->
 			<div class="card-header pl-0 pr-0">
-				<div class="row no-gutters w-100 align-items-center">
-					<div class="col ml-3">번호</div>
-					<div class="col ml-3">제목</div>
-					<div class="col-4 text-muted">
-						<div class="row no-gutters align-items-center">
-							<div class="d-none d-md-block col-4">닉네임</div>
-							<div class="d-md-none col-12">닉네임</div>
-							<div class="d-none d-md-block col-4">작성일</div>
-							<div class="d-none d-md-block col-4">조회수</div>
-						</div>
-					</div>
+				<div class="row no-gutters w-100 align-items-center" id=head>
+					<div class="col-12" align=center id=head>새 글 작성하기</div>
 				</div>
 			</div>
 
 			<!-- 내용 -->
 			<div class="card-body py-3">
-				<div class="row no-gutters w-100 align-items-center">
-					<div class="col ml-3">번호</div>
-					<div class="col ml-3">
-						<a href="" class="text-big" data-abc="true">제목</a>
-					</div>
-					<div class="col-4 text-muted">
-						<div class="row no-gutters align-items-center">
-							<div class="d-none d-md-block col-4">닉네임</div>
-							<div class="d-md-none col-12">닉네임</div>
-							<div class="d-none d-md-block col-4">작성일</div>
-							<div class="d-none d-md-block col-4">조회수</div>
-						</div>
-					</div>
-				</div>
+				<div id="summernote"></div>
+	
+	<script>
+	// 메인화면 페이지 로드 함수
+    $(document).ready(function () {
+        $('#summernote').summernote({
+            placeholder: '내용을 작성하세요',
+            height: 400,
+            maxHeight: null,
+            minHeight: null,
+            lang: "ko-KR",
+            focus: true,
+            toolbar: [
+			    // [groupName, [list of button]]
+			    ['fontname', ['fontname']],
+			    ['fontsize', ['fontsize']],
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    ['color', ['forecolor','color']],
+			    ['table', ['table']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert',['picture','link','video']],
+			    ['view', ['fullscreen', 'help']]
+			  ],
+			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+        });
+        
+    });
+	</script>
 			</div>
-		</div>
 		<!-- 버튼 페이징 -->
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center"></ul>
 		</nav>
-		<table class="table-sm mb-0" align=right>
-			<tr>
-				<td><select class="selectpicker" id="select" name="select">
-						<option>제목</option>
-						<option>내용</option>
-						<option>닉네임</option>
-				</select></td>
-				<td><input type="search" class="form-control rounded"
-					placeholder="내용을 입력하세요" id="searchContents" name="searchContents" /></td>
-				<td>
-					<button id="search" name="search">
-						<i class="fas fa-search"></i>
-					</button>
-				</td>
-				<td>
-					<button id="writeBtn" name="writeBtn">글쓰기해줘</button>
-				</td>
-			</tr>
-		</table>
+		<div align=right id=write>
+			<button type=submit>글쓰기</button>
+		</div>
 	</div>
 	<!-- 풋터 -->
 	<jsp:include page="/WEB-INF/views/footer.jsp" flush="false" />
 	<script>
 	
-		$("#writeBtn").on("click",function(){
-			location.href="/board/writeForm";
+		$("#write").on("click",function(){
+			location.href="/board/main";
 		})
-	
 	</script>
+	
 </body>
 </html>
