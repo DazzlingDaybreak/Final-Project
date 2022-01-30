@@ -1,20 +1,21 @@
 package kh.spring.dto;
 
-public class LikeDTO {
+public class LikeHeartDTO {
+
 	private int seq;
 	private int refChalSeq;
 	private String refNickname;
 	
-	public LikeDTO(int seq, int refChalSeq, String refNickname) {
+	public LikeHeartDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public LikeHeartDTO(int seq, int refChalSeq, String refNickname) {
 		super();
 		this.seq = seq;
 		this.refChalSeq = refChalSeq;
 		this.refNickname = refNickname;
-	}
-
-	public LikeDTO() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getSeq() {
@@ -39,6 +40,5 @@ public class LikeDTO {
 
 	public void setRefNickname(String refNickname) {
 		this.refNickname = refNickname;
-	}
-	
+	}	
 }

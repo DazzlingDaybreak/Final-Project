@@ -1,5 +1,9 @@
 package kh.spring.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dao.LikeDAO;
 import kh.spring.dto.LikeDTO;
+import kh.spring.dto.LikeHeartDTO;
+import kh.spring.service.LikeService;
 
 @RequestMapping("/like")
 @Controller
@@ -17,30 +23,29 @@ public class LikeController {
 	
 	@Autowired
 	private LikeDAO ldao;
+	private LikeService lService;
 	private HttpSession session;
 	
 	@ResponseBody
 	@RequestMapping("/fill")
-	public LikeDTO likeCheck(@RequestParam String likeNum, HttpSession session) {
-		LikeDTO dto = new LikeDTO();
+	public String likeCheck(@RequestParam("seq") int refChalSeq, String refNickname, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		LikeHeartDTO dto = new LikeHeartDTO();
 //		String id = request.getParameter("loginID");
 //		String likeNum = request.getParameter("likeNum");	
 //		System.out.println(id);
-		dto.setLikeNum(likeNum);
-		dto.setId((String)session.getAttribute("Id"));
+		dto.setSeq(refChalSeq);
+		dto.setRefNickname((String)session.getAttribute("nick"));
+		List<LikeDTO> likeCheck = ldao.likeCheck(refNickname, refChalSeq);
+//		System.out.println("하트 체크 : "+dto);
+		if(likeCheck==null) { 
+			int likeAdd =  ldao.likeAdd(refNickname, refChalSeq);
+			response.getWriter().append("add");
+			return String.valueOf(likeAdd);
+		} else {	
+			int likeDel = ldao.likeDel(refNickname, refChalSeq);
+			response.getWriter().append("del");
+			return String.valueOf(likeDel);
+		}
 		
-//		boolean DetailLikeCheck = ldao.likeCheck(likeNum);
-		System.out.println("하트 체크 : "+dto);
-		return dto;
-	}
-	
-	@ResponseBody
-	@RequestMapping("/empty")
-	public LikeDTO removeCheck(@RequestParam String likeNum, HttpSession session) {
-		LikeDTO dto = new LikeDTO();
-		
-		dto.setLikeNum(likeNum);
-		dto.setChalNum((String)session.getAttribute("Id"));
-		return dto;
 	}
 }
