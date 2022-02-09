@@ -84,11 +84,8 @@ public class MypageDAO {
 	}
 	
 	// 인증 중복 검사.
-	public int certiCheck(Timestamp certiDate,String chalName) {
-		Map<Object, Object> map = new HashMap<Object,Object>();
-		map.put("certiDate", certiDate);
-		map.put("chalName", chalName);
-		return mybatis.selectOne("Mypage.certiCheck",map);
+	public int certiCheck(Timestamp certiDate) {
+		return mybatis.selectOne("Mypage.certiCheck",certiDate);
 	}
 	
 	//유저 폼
