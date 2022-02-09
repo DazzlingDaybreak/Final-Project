@@ -391,7 +391,7 @@ body {
 			<c:if test="${writerNickname != null && blackList == 'N' or loginId=='admin1234'}">
 			<form
 				action="/board/writeRp?cpage=${cpage}&seq=${bList.seq}&select=${select}&keyword=${keyword}"
-				method="post" id="frm-rp">
+				method="post">
 				<hr>
 				<div class="container mb-4">
 					<div class="row" style="padding-bottom: 5px;">
@@ -571,11 +571,9 @@ body {
 	<script type="text/javascript">
 	// 댓글 내용없을시 작성불가.
 	$("#writeRp").on("click",function(){
-		if($("#rpContents").val()==''){
+		if($("#writeRp").val()==''){
 			alert("내용을 입력해주세요.");
 			return false;
-		}else{
-			$("#frm-rp").submit();
 		}
 	})
 	</script>
