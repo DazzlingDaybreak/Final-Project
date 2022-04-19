@@ -17,4 +17,5 @@ JAVA, Spring, Oracle, Javascript, CSS, Tomcat 8.5, AWS
 http://3.34.54.217/
 
 ## ERD
-![글피](https://user-images.githubusercontent.com/95536303/163949311-55e17e3b-065d-405e-902c-07a8c7ce29cd.png)
+<img width="60%" src="https://user-images.githubusercontent.com/95536303/163949600-23beee7a-c78a-4e4d-a04c-6d0d9dcd793c.png"/>
+
